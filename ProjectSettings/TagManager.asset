@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Falling
+  - Ground
+  - computer
+  - Clouds
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 4123306515
+    locked: 0
+  - name: Clouds
+    uniqueID: 3086996903
+    locked: 0
+  - name: Ground
+    uniqueID: 1369650115
+    locked: 0
+  - name: Player
+    uniqueID: 3760263845
+    locked: 0
+  - name: Falling
+    uniqueID: 668433767
+    locked: 0
+  - name: Gui
+    uniqueID: 3958897741
+    locked: 0
