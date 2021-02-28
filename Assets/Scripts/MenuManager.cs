@@ -40,7 +40,6 @@ public class MenuManager : MonoBehaviour
         countDown.text = ("" + timeLeft);
         if(timeLeft == 0)
         {
-            Application.Quit();
             MenuManager.instance.GameOver();
             gameObject.SetActive(false);
 
@@ -87,12 +86,15 @@ public class MenuManager : MonoBehaviour
             gameOverMenu.SetActive(true);
             finalScore.text = "Spadnuté: " + currentScore;
             finalSeparatedScore.text = "Vyzbierané: " + currentSeparating;
-           
-        
     }
 
     public void HomeButton()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void QuitApplication()
+    {
+        Application.Quit();
     }
 }
