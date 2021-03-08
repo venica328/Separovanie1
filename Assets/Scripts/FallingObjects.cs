@@ -23,6 +23,9 @@ public class FallingObjects : MonoBehaviour
     float xPos = 0;
     int rand;
 
+    public bool startFalling = false;
+
+
 
     void Awake()
     {
@@ -40,14 +43,12 @@ public class FallingObjects : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Player.instance.StartMoving == true)
+        currentTime -= Time.deltaTime;
+        if(currentTime <= 0)
         {
-            currentTime -= Time.deltaTime;
-            if(currentTime <= 0)
-            {
-                getFalling();
-            }
+            getFalling();
         }
+        
     }
 
     void FeltObject(float xPos)

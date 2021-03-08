@@ -9,14 +9,15 @@ public class MenuManager : MonoBehaviour
     public static MenuManager instance;
 
     [SerializeField]
-    private Text scoreText, separatingText, finalScore, finalSeparatedScore, countDown;
+    private Text scoreText, separatingText, finalScore, finalSeparatedScore, countDown, fullScore, inputFieldName, changeTime, score;
     [SerializeField]
-    private GameObject gameMenu, gameOverMenu, menu;
+    private GameObject gameMenu, gameOverMenu, menu, inputFieldMenu, changeTimeMenu;
 
     private int currentSeparating, currentScore;
-    private int timeLeft = 60;
+    public int timeLeft = 60;
+    public int counting;
 
-
+    public string inputFieldString;
 
 
     void Awake()
@@ -30,17 +31,19 @@ public class MenuManager : MonoBehaviour
     {
         scoreText.text = "" + 0;
         separatingText.text = "" + 0;
+        fullScore.text = "Dosiahli ste skóre";
+        score.text = "" + 0;
+        changeTime.text = "Váš čas doby hry je nastavený na: " + timeLeft;
 
-        StartCoroutine("LoseTime");
-        Time.timeScale = 1;
+        
     }
 
     void Update()
     {
         countDown.text = ("" + timeLeft);
-        if(timeLeft == 0)
+        if (timeLeft == 0)
         {
-            MenuManager.instance.GameOver();
+            MenuManager.instance.InputFieldMenu();
             gameObject.SetActive(false);
 
         }
@@ -52,11 +55,11 @@ public class MenuManager : MonoBehaviour
         {
             yield return new WaitForSeconds(1);
             timeLeft--;
+            
         }
     }
 
 
-    // Update is called once per frame
     public void IncreaseSeparating()
     {
         currentSeparating++;
@@ -64,28 +67,102 @@ public class MenuManager : MonoBehaviour
     }
 
 
-    public void IncreaseScore()
+    public void IncreaseFalling()
     {
-        currentScore++ ;
+        currentScore++;
         scoreText.text = "" + currentScore;
+    }
+
+    public void ReduceScore()
+    {
+        currentSeparating--;
+        separatingText.text = "" + currentSeparating;
     }
 
 
     public void PlayButton()
     {
-        menu.SetActive(false);
-        gameMenu.SetActive(true);
-        Player.instance.StartMoving = true;
+        GameMenu();
     }
 
+    public void GameMenu()
+    {
+        StartCoroutine("LoseTime");
+        Time.timeScale = 1;
+        menu.SetActive(false);
+        gameMenu.SetActive(true);
+        inputFieldMenu.SetActive(false);
+        changeTimeMenu.SetActive(false);
+        Player.instance.StartMoving = true;
+        FallingObjects.instance.gameObject.SetActive(true);
+        FallingObjects.instance.startFalling = true;
+    }
+
+    public void InputFieldMenu()
+    {
+        menu.SetActive(false);
+        gameMenu.SetActive(false);
+        inputFieldMenu.SetActive(true);
+        Player.instance.StartMoving = false;
+        FallingObjects.instance.gameObject.SetActive(false);
+        FallingObjects.instance.startFalling = true;
+        counting = currentSeparating;
+        score.text = "" + counting;
+        fullScore.text = "Dosiahli ste skóre: ";
+        Debug.Log(inputFieldName.text);
+
+    }
+
+    public void ChangeTimeMenu()
+    {
+        menu.SetActive(false);
+        gameMenu.SetActive(false);
+        inputFieldMenu.SetActive(false);
+        changeTimeMenu.SetActive(true);
+        Player.instance.StartMoving = false;
+        FallingObjects.instance.gameObject.SetActive(false);
+        FallingObjects.instance.startFalling = true;
+    }
     public void GameOver()
     {
-            FallingObjects.instance.gameObject.SetActive(false);
-            gameMenu.SetActive(false);
-            menu.SetActive(false);
-            gameOverMenu.SetActive(true);
-            finalScore.text = "Spadnuté: " + currentScore;
-            finalSeparatedScore.text = "Vyzbierané: " + currentSeparating;
+        FallingObjects.instance.gameObject.SetActive(false);
+        Player.instance.StartMoving = false;
+        gameMenu.SetActive(false);
+        menu.SetActive(false);
+        gameOverMenu.SetActive(true);
+        inputFieldMenu.SetActive(false);
+        //finalScore.text = "Spadnuté: " + currentScore;
+        //finalSeparatedScore.text = "Vyzbierané: " + currentSeparating;
+    }
+
+
+
+    public void ChangeTimeTo30()
+    {
+        timeLeft = 0;
+        timeLeft = 30;
+        changeTime.text = "Váš čas doby hry bude zmenený na: " + timeLeft;
+    }
+
+    public void ChangeTimeTo60()
+    {
+        timeLeft = 0;
+        timeLeft = 60;
+        changeTime.text = "Váš čas doby hry bude zmenený na: " + timeLeft;
+    }
+
+    public void ChangeTimeTo90()
+    {
+        timeLeft = 0;
+        timeLeft = 90;
+        changeTime.text = "Váš čas doby hry bude zmenený na: " + timeLeft;
+    }
+
+    public void ChangeTimeTo120()
+    {
+        timeLeft = 0;
+        timeLeft = 120;
+        changeTime.text = "Váš čas doby hry bude zmenený na: " + timeLeft;
     }
 
     public void HomeButton()
@@ -95,6 +172,7 @@ public class MenuManager : MonoBehaviour
 
     public void QuitApplication()
     {
+        Debug.Log("the end");
         Application.Quit();
     }
 }

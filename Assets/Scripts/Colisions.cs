@@ -4,26 +4,14 @@ using UnityEngine;
 
 public class Colisions : MonoBehaviour
 {
-    private void onCollisionEnter(Collision2D other)
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.collider.name == "Ground")
+        if (other.gameObject.name == "papier" || other.gameObject.name == "plast" || other.gameObject.name == "sklo")
         {
-            Debug.Log("COMPUTER2");
-            gameObject.SetActive(false);
-            MenuManager.instance.GameOver();
-            gameObject.SetActive(false);
-            Application.Quit();
-            
-        }
-
-        if (other.collider.name == "computer")
-        {
-            Debug.Log("COMPUTER2");
-            gameObject.SetActive(false);
-            MenuManager.instance.GameOver();
-            gameObject.SetActive(false);
-
+            Debug.Log("quit");
+            MenuManager.instance.IncreaseFalling();
         }
     }
-    
+
 }

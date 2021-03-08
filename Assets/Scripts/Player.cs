@@ -29,29 +29,25 @@ public class Player : MonoBehaviour
     
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (startMoving == true)
         {
-            target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            target.y = transform.position.y;
+            if (Input.GetMouseButtonDown(0))
+            {
+                target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                target.y = transform.position.y;
+            }
+            transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
         }
-        transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
 
     }
     
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        /**if (other.CompareTag("Falling"))
-        {
-            MenuManager.instance.GameOver();
-            gameObject.SetActive(false);
-        }**/
         if(other.gameObject.name == "computer" || other.gameObject.name == "phone")
         {
             Debug.Log("quit");
-            gameObject.SetActive(false);
-            MenuManager.instance.GameOver();
-            gameObject.SetActive(false);
+            MenuManager.instance.ReduceScore();
         }
     }
 
